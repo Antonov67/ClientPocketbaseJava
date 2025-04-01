@@ -1,6 +1,7 @@
 package org.example.service;
 
 import org.example.API;
+import org.example.Classroom;
 import org.example.ResponseByClass;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,7 +28,7 @@ public class RetrofitService {
         call.enqueue(new Callback<ResponseByClass>() {
             @Override
             public void onResponse(Call<ResponseByClass> call, Response<ResponseByClass> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     callback.load(response.body());
                 }
             }
@@ -37,6 +38,27 @@ public class RetrofitService {
 
             }
         });
+    }
+
+    public void createClassroom(Classroom classroom,
+                                SimpleDataCallback<Classroom> callback) {
+
+        Call<Classroom> call = api.createClassroom(classroom);
+        call.enqueue(new Callback<Classroom>() {
+            @Override
+            public void onResponse(Call<Classroom> call, Response<Classroom> response) {
+                if (response.isSuccessful()){
+                    callback.load(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Classroom> call, Throwable throwable) {
+
+            }
+        });
+
+
     }
 
 }
