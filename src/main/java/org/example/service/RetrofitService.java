@@ -61,4 +61,22 @@ public class RetrofitService {
 
     }
 
+    public void deleteClassroom(String id,
+                                SimpleDataCallback<String> callback){
+        Call<Void> call = api.deleteClassroom(id);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()){
+                    callback.load("успешное удаление");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable throwable) {
+
+            }
+        });
+    }
+
 }

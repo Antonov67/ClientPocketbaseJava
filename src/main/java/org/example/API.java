@@ -1,9 +1,7 @@
 package org.example;
 
 import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
+import retrofit2.http.*;
 
 public interface API {
 
@@ -13,4 +11,6 @@ public interface API {
     @POST("collections/class/records")
     Call<Classroom> createClassroom(@Body Classroom classroom);
 
+    @DELETE("collections/class/records/{id}")
+    Call<Void> deleteClassroom(@Path("id") String id);
 }
