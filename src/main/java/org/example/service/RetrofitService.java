@@ -79,4 +79,24 @@ public class RetrofitService {
         });
     }
 
+    public void getClassByFilter (String filter,
+                                  SimpleDataCallback<ResponseByClass> callback){
+
+        Call<ResponseByClass> call = api.getClassesByName(filter);
+        call.enqueue(new Callback<ResponseByClass>() {
+            @Override
+            public void onResponse(Call<ResponseByClass> call, Response<ResponseByClass> response) {
+                if (response.isSuccessful()){
+                    callback.load(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseByClass> call, Throwable throwable) {
+
+            }
+        });
+
+    }
+
 }

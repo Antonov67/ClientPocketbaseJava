@@ -24,7 +24,7 @@ public class MainForm extends JFrame {
         setBounds(100,100,600,600);
         setLayout(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        //поле ввода новго класса
+        //поле ввода нового класса
         JTextField classroomField = new JTextField();
         classroomField.setBounds(10,10,250,50);
         add(classroomField);
@@ -45,6 +45,11 @@ public class MainForm extends JFrame {
         JButton deleteButton = new JButton("удалить");
         deleteButton.setBounds(10,390,250,50);
         add(deleteButton);
+
+        //поле ввода для фильтра
+        JTextField filterField = new JTextField();
+        filterField.setBounds(280,150,250,50);
+        add(filterField);
 
         deleteButton.addActionListener(new ActionListener() {
             @Override

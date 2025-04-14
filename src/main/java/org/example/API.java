@@ -13,4 +13,7 @@ public interface API {
 
     @DELETE("collections/class/records/{id}")
     Call<Void> deleteClassroom(@Path("id") String id);
+
+    @GET("collections/class/records")
+    Call<ResponseByClass> getClassesByName(@Query("filter") String filter);
 }
