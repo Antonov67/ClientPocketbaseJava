@@ -1,9 +1,9 @@
 package org.example.presentation;
 
-import org.example.Classroom;
-import org.example.ResponseByClass;
-import org.example.service.RetrofitService;
-import org.example.service.SimpleDataCallback;
+import org.example.data.classroom.Classroom;
+import org.example.data.classroom.ResponseByClass;
+import org.example.data.service.RetrofitService;
+import org.example.data.service.SimpleDataCallback;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -71,18 +71,34 @@ public class MainForm extends JFrame {
         resetButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                retrofitService.getAllClassrooms(new SimpleDataCallback<ResponseByClass>() {
-                    @Override
-                    public void load(ResponseByClass data) {
-                        model.removeAllElements();
-                        classrooms.clear();
-                        classrooms.addAll(data.items);
-                        for (Classroom c : data.items){
-                            model.addElement(c.getName());
+
+                if (filterField.getText().isEmpty()){
+                    retrofitService.getAllClassrooms(new SimpleDataCallback<ResponseByClass>() {
+                        @Override
+                        public void load(ResponseByClass data) {
+                            model.removeAllElements();
+                            classrooms.clear();
+                            classrooms.addAll(data.items);
+                            for (Classroom c : data.items){
+                                model.addElement(c.getName());
+                            }
+                            list.setModel(model);
                         }
-                        list.setModel(model);
-                    }
-                });
+                    });
+                } else {
+                    retrofitService.getClassByFilter(filterField.getText(), new SimpleDataCallback<ResponseByClass>() {
+                        @Override
+                        public void load(ResponseByClass data) {
+                            model.removeAllElements();
+                            classrooms.clear();
+                            classrooms.addAll(data.items);
+                            for (Classroom c : data.items){
+                                model.addElement(c.getName());
+                            }
+                            list.setModel(model);
+                        }
+                    });
+                }
             }
         });
 

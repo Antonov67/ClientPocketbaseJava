@@ -1,8 +1,7 @@
-package org.example.service;
+package org.example.data.service;
 
-import org.example.API;
-import org.example.Classroom;
-import org.example.ResponseByClass;
+import org.example.data.classroom.Classroom;
+import org.example.data.classroom.ResponseByClass;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -82,7 +81,7 @@ public class RetrofitService {
     public void getClassByFilter (String filter,
                                   SimpleDataCallback<ResponseByClass> callback){
 
-        Call<ResponseByClass> call = api.getClassesByName(filter);
+        Call<ResponseByClass> call = api.getClassesByName("(name?~'" + filter + "')");
         call.enqueue(new Callback<ResponseByClass>() {
             @Override
             public void onResponse(Call<ResponseByClass> call, Response<ResponseByClass> response) {
